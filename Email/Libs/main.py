@@ -58,6 +58,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		# 绑定QListWidget
 		self.connect(self.emaillist, SIGNAL('itemClicked(QListWidgetItem *)'), self.itemClicked)
 
+		# 搜索列表默认隐藏
+		self.searchList.hide()
+
+		# 登录上次账号
 		try:
 			start = time.time()
 			self.emailInfo = GetJsonInfo('conf.json')
@@ -74,13 +78,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.login = 1
 
 		except Exception as e:
-			print(type(e))
 			print(e)
 			self.emailInfo["status"] = 0
 			SaveJsonInfo('conf.json', self.emailInfo)
 
 
-
+	# 无边框设计
 	def mousePressEvent(self, event):
 		if event.button() == Qt.LeftButton:
 			self.dragPosition = event.globalPos() - self.frameGeometry().topLeft()
@@ -92,28 +95,82 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.move(event.globalPos() - self.dragPosition)
 			event.accept()
 
+	# 转发
 	@pyqtSlot()
-	def itemClicked(self):
-		my_currentItem = self.emaillist.currentItem()
-		my_text = my_currentItem.text().split('\n')[1].split('\n')[0]
-		url = 'file:///' + os.path.abspath(os.path.join(os.path.dirname(__file__))) + r'/data/%s.html'%my_text
-		url = url.replace('\\','/')
-		print(url)
-		self.emailShow.setUrl(QtCore.QUrl(url))
-
-	@pyqtSlot()
-	def on_calender_clicked(self):
-		my_calender = calenderDialog()
-		my_calender.exec_()
-
-	@pyqtSlot()
-	def on_mainwriteletter_clicked(self):
+	def on_mainForward_clicked(self):
 		if self.login == 0:
 			my_alert = QMessageBox.warning(self, '操作失败', u'请先登录您的账号！')
 		else:
-			my_writemail  = WriteEmailDialog()
-			my_writemail.exec_()
+			my_subject = self.contEmailSubject.text()
+			my_name = self.contName.text()
+			my_email = self.contEmail.text()
+			my_time = self.contEmailTime.text()
+			my_info = {
+				'subject':my_subject,
+				'name':my_name,
+				'email':my_email,
+				'time':my_time
+			}
+			my_url = 'data/' + self.url.split('data/')[1]
 
+			my_mainForward  = WriteEmailDialog(isForwad=True, info=my_info,url=my_url)
+			my_mainForward.exec_()
+
+	# 删除邮件
+	@pyqtSlot()
+	def on_delEmail_clicked(self):
+		isDel = QMessageBox.information(self, '删除邮件', u'确定要删除该封邮件？', 'Yes', 'Cancel')
+		if  self.item_enable_delete :
+			if not isDel:
+				my_subject = self.contEmailSubject.text()
+				self.contacts = GetJsonInfo('contacts.json')
+				self.contEmail.setText('')
+				self.contEmailTime.setText('')
+				self.contEmailSubject.setText('')
+				self.contName.setText('')
+				self.emailShow.setUrl(QtCore.QUrl("qrc:/souce/index.html"))
+				self.contacts.pop(my_subject)
+				self.emaillist.takeItem(self.emaillist.currentRow())
+				self.item_enable_delete = False
+				self.mainForward.hide()
+				self.delEmail.hide()
+
+
+	# 查询邮件
+	@pyqtSlot()
+	def on_mainSearch_clicked(self):
+		self.contacts = GetJsonInfo('contacts.json')
+		search_text = self.searchlineEdit.text()    # 获取搜索内容
+		if search_text:
+			# 联系人查找
+			for item in self.contacts:
+				if search_text == self.contacts[item]['fromAddr']:
+					print('你找到信息如下')
+
+
+
+	# 绑定邮件列表点击事件
+	@pyqtSlot()
+	def itemClicked(self):
+		try:
+			self.item_enable_delete = True  # 点击一个元素，可删除
+			my_contacts = GetJsonInfo('contacts.json')
+			my_currentItem = self.emaillist.currentItem()
+			my_text = my_currentItem.text().split('\n')[1].split('\n')[0]
+			self.url = 'file:///' + os.path.abspath(os.path.join(os.path.dirname(__file__))) + r'/data/%s.html'%my_text
+			self.url = self.url.replace('\\','/')
+			print(self.url)
+			self.contName.setText(my_contacts[my_text]['name'])
+			self.contEmail.setText(my_contacts[my_text]['fromAddr']) 
+			self.contEmailTime.setText(my_contacts[my_text]['date'])
+			self.contEmailSubject.setText(my_text)
+			self.mainForward.show()
+			self.delEmail.show()
+			self.emailShow.setUrl(QtCore.QUrl(self.url))
+		except Exception as e:
+			print(str(e))
+
+	# 将邮件摘要添加至列表
 	def addQListWidgetItem(self):
 		files = []
 		for file in os.listdir('data/'):
@@ -121,15 +178,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			if os.path.isfile(os.path.join('data/',file)):
 				files.append(file)
 		print('****************************\n\n')
-		my_emailInfo = GetJsonInfo('contacts.json')
+		my_contacts = GetJsonInfo('contacts.json')
 
-		for subject in my_emailInfo:
+		for subject in my_contacts:
 			filename = subject + '.html'
 			if filename in files:
-				abstractContent = my_emailInfo[subject]['name'] +  '\n' + subject + '\n' + my_emailInfo[subject]['date'].split('+')[0]
+				abstractContent = my_contacts[subject]['name'] +  '\n' + subject + '\n' + my_contacts[subject]['date'].split('+')[0]
 				self.emaillist.addItem(abstractContent)
 
-
+	# 接收邮件
 	@pyqtSlot()
 	def on_mainreceiveletter_clicked(self):
 		if self.login == 0:
@@ -139,27 +196,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			receiveWay = 0
 			self.ReceiveEmail = ReceiveEmail()
 			self.ReceiveEmail.start()
-			time.sleep(3)
-
+			# time.sleep(3)
+			self.emaillist.clear()
 			self.addQListWidgetItem()
-
-
-	def on_mainclose_clicked(self):
-		self.close()
-
-	@pyqtSlot()
-	def on_mainmin_clicked(self):
-		self.showMinimized()
-
-
-	@pyqtSlot()
-	def on_emailsort_clicked(self):
-		if self.login == 0:
-			my_alert = QMessageBox.warning(self, '操作失败', u'请先登录您的账号！')
-		else:
-			print("排序")
-
-
 
 	@pyqtSlot()
 	def on_moreemail_clicked(self):
@@ -170,14 +209,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			page += 1
 			print(page)
 
-			global receiveWay 
+			global receiveWay
 			receiveWay = 1
 			self.ReceiveEmail = ReceiveEmail()
 			self.ReceiveEmail.start()
 			time.sleep(3)
-
+			self.emaillist.clear()
 			self.addQListWidgetItem()
 
+
+	@pyqtSlot()
+	def on_emailsort_clicked(self):
+		if self.login == 0:
+			my_alert = QMessageBox.warning(self, '操作失败', u'请先登录您的账号！')
+		else:
+			print("排序")
 
 	@pyqtSlot()
 	def on_addressbook_clicked(self):
@@ -197,6 +243,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.mainlogin.setText('切换账号')
 			self.login = 1
 
+	# 日历
+	@pyqtSlot()
+	def on_calender_clicked(self):
+		my_calender = calenderDialog()
+		my_calender.exec_()
+
+	# 写信
+	@pyqtSlot()
+	def on_mainwriteletter_clicked(self):
+		if self.login == 0:
+			my_alert = QMessageBox.warning(self, '操作失败', u'请先登录您的账号！')
+		else:
+			my_writemail  = WriteEmailDialog()
+			my_writemail.exec_()
+
+	@pyqtSlot()
+	def on_mainclose_clicked(self):
+		self.close()
+
+	@pyqtSlot()
+	def on_mainmin_clicked(self):
+		self.showMinimized()
+
+
 if __name__ == "__main__":
 	import sys
 	app = QtGui.QApplication(sys.argv)
@@ -204,4 +274,3 @@ if __name__ == "__main__":
 	ui = MainWindow()
 	ui.show()
 	sys.exit(app.exec_())
-

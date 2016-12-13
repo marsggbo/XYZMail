@@ -82,6 +82,7 @@ class Ui_contacts(object):
         self.contUserMail.setStyleSheet(_fromUtf8("#contUserMail{\n"
 "    text-align:center;\n"
 "}"))
+        self.contUserMail.setAlignment(QtCore.Qt.AlignCenter)
         self.contUserMail.setObjectName(_fromUtf8("contUserMail"))
         self.contactINfo = QtGui.QWidget(self.contactsBox)
         self.contactINfo.setGeometry(QtCore.QRect(400, 0, 600, 550))
@@ -104,12 +105,11 @@ class Ui_contacts(object):
         self.contEmail.setGeometry(QtCore.QRect(160, 80, 130, 20))
         self.contEmail.setObjectName(_fromUtf8("contEmail"))
         self.contWriteLetter = QtGui.QPushButton(self.contInfoTop)
-        self.contWriteLetter.setGeometry(QtCore.QRect(160, 110, 115, 35))
+        self.contWriteLetter.setGeometry(QtCore.QRect(460, 100, 100, 30))
         self.contWriteLetter.setStyleSheet(_fromUtf8("#contWriteLetter{\n"
 "    border:none;\n"
 "    font-size:14px;\n"
-"color:white;\n"
-"    background-color: rgb(29, 171, 123);\n"
+"    background-color:rgb(219,219,219);\n"
 "}\n"
 "#contWriteLetter:hover{\n"
 "background-color: rgb(26, 227, 159);\n"
@@ -119,7 +119,7 @@ class Ui_contacts(object):
         self.contWriteLetter.setIcon(icon1)
         self.contWriteLetter.setObjectName(_fromUtf8("contWriteLetter"))
         self.delContact = QtGui.QPushButton(self.contInfoTop)
-        self.delContact.setGeometry(QtCore.QRect(470, 110, 91, 31))
+        self.delContact.setGeometry(QtCore.QRect(460, 40, 100, 30))
         self.delContact.setStyleSheet(_fromUtf8("#delContact{\n"
 "    border:none;\n"
 "    font-size:14px;\n"
@@ -202,14 +202,6 @@ class Ui_contacts(object):
         self.contactsList.setModelColumn(0)
         self.contactsList.setWordWrap(False)
         self.contactsList.setObjectName(_fromUtf8("contactsList"))
-        item = QtGui.QListWidgetItem()
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/登录.png")), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        item.setIcon(icon3)
-        self.contactsList.addItem(item)
-        item = QtGui.QListWidgetItem()
-        item.setIcon(icon3)
-        self.contactsList.addItem(item)
 
         self.retranslateUi(contacts)
         QtCore.QMetaObject.connectSlotsByName(contacts)
@@ -230,13 +222,6 @@ class Ui_contacts(object):
         self.label_6.setText(_translate("contacts", "WeChat:", None))
         self.contCancel.setText(_translate("contacts", "取消", None))
         self.contSave.setText(_translate("contacts", "保存", None))
-        __sortingEnabled = self.contactsList.isSortingEnabled()
-        self.contactsList.setSortingEnabled(False)
-        item = self.contactsList.item(0)
-        item.setText(_translate("contacts", "q", None))
-        item = self.contactsList.item(1)
-        item.setText(_translate("contacts", "adsadasda", None))
-        self.contactsList.setSortingEnabled(__sortingEnabled)
 
 import souce_rc
 

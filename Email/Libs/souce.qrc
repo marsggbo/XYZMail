@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="souce">
+    <file>souce/搜索框－搜索white.png</file>
+    <file>souce/搜索框－搜索.png</file>
     <file>index.html</file>
     <file>souce/附件.png</file>
     <file>souce/设置.png</file>
