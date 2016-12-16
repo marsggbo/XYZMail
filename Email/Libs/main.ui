@@ -92,7 +92,7 @@ QPushButton:hover {
        Background-color:rgb(29,171,123);
 }</string>
      </property>
-     <widget class="QPushButton" name="email">
+     <widget class="QPushButton" name="about">
       <property name="geometry">
        <rect>
         <x>2</x>
@@ -105,7 +105,7 @@ QPushButton:hover {
        <bool>false</bool>
       </property>
       <property name="toolTip">
-       <string>邮件</string>
+       <string>关于</string>
       </property>
       <property name="accessibleName">
        <string/>
@@ -256,18 +256,20 @@ QPushButton:hover {
     <widget class="QPushButton" name="mainlogin">
      <property name="geometry">
       <rect>
-       <x>65</x>
-       <y>240</y>
-       <width>70</width>
-       <height>25</height>
+       <x>80</x>
+       <y>230</y>
+       <width>41</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">#mainlogin{
 background-color: rgb(41, 189, 139);
+
 }
 #mainlogin:hover{
 background-color: rgb(29,171,123);
+border-radius:20px;
 }</string>
      </property>
      <property name="text">
@@ -291,6 +293,44 @@ background-color: rgb(29,171,123);
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="sendedBox">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>340</y>
+       <width>201</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#sendedBox{background-color: rgb(85, 255, 127);}
+#sendedBox:hover{
+background-color: rgb(123,25,36);
+}</string>
+     </property>
+     <property name="text">
+      <string>已发送</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="receivedBox">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>300</y>
+       <width>201</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#receivedBox{background-color: rgb(85, 255, 127);}
+#receivedBox:hover{
+background-color: rgb(123,25,36);
+}</string>
+     </property>
+     <property name="text">
+      <string>收件箱</string>
      </property>
     </widget>
    </widget>
@@ -326,20 +366,7 @@ background-color: rgb(29,171,123);
       </rect>
      </property>
      <property name="text">
-      <string>排序</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="moreemail">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>0</y>
-       <width>130</width>
-       <height>50</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>更多</string>
+      <string>主题排序</string>
      </property>
     </widget>
     <widget class="QListWidget" name="emaillist">
@@ -368,34 +395,111 @@ background-color: rgb(41, 189, 139);
       <number>-1</number>
      </property>
      <property name="sortingEnabled">
-      <bool>false</bool>
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="sendedList">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>260</width>
+       <height>490</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#sendedList{background-color: rgb(242,242,242);}
+#sendedList::Item{
+width:260px;
+height:80px;
+}
+#sendedList::Item:hover{
+background-color: rgb(41, 189, 139);
+}</string>
+     </property>
+     <property name="tabKeyNavigation">
+      <bool>true</bool>
+     </property>
+     <property name="currentRow">
+      <number>-1</number>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QListWidget" name="searchList">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>0</y>
-       <width>190</width>
-       <height>221</height>
+       <x>0</x>
+       <y>50</y>
+       <width>260</width>
+       <height>490</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">#searchList{
-	background-color:white;
+      <string notr="true">#searchList{background-color: rgb(242,242,242);}
+#searchList::Item{
+width:260px;
+height:80px;
+}
+#searchList::Item:hover{
+background-color: rgb(41, 189, 139);
 }</string>
+     </property>
+     <property name="tabKeyNavigation">
+      <bool>true</bool>
+     </property>
+     <property name="currentRow">
+      <number>-1</number>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="emailsort_2">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>0</y>
+       <width>132</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>发信人排序</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="moreemail">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>460</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#moreemail{
+background-color:rgb(56,56,78);
+	border-radius:20px;
+color:white;
+	font-size:30px;
+}
+#moreemail:hover{
+background-color:rgb(123,25,65);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>+</string>
      </property>
     </widget>
     <zorder>emailsort</zorder>
-    <zorder>moreemail</zorder>
-    <zorder>emaillist</zorder>
+    <zorder>sendedList</zorder>
     <zorder>searchList</zorder>
-    <zorder>mainSearch</zorder>
-    <zorder>searchlineEdit</zorder>
-    <zorder>pushButton</zorder>
-    <zorder>mainSearch</zorder>
-    <zorder>searchlineEdit</zorder>
-    <zorder>pushButton</zorder>
+    <zorder>emaillist</zorder>
+    <zorder>emailsort_2</zorder>
+    <zorder>moreemail</zorder>
    </widget>
    <widget class="QGroupBox" name="showemail">
     <property name="geometry">
@@ -417,9 +521,9 @@ background-color: rgb(41, 189, 139);
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>83</y>
+       <y>82</y>
        <width>611</width>
-       <height>460</height>
+       <height>461</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -482,9 +586,9 @@ font: 14px &quot;微软雅黑&quot;;</string>
      <widget class="QLabel" name="contEmail">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>340</x>
         <y>20</y>
-        <width>231</width>
+        <width>251</width>
         <height>20</height>
        </rect>
       </property>
@@ -495,68 +599,12 @@ font: 14px &quot;微软雅黑&quot;;</string>
        <string>邮  箱</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="mainForward">
-      <property name="geometry">
-       <rect>
-        <x>530</x>
-        <y>45</y>
-        <width>60</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#mainForward{
-	border:none;
-	font-size:14px;
-	background-color: rgb(219,219,219);
-}
-#mainForward:hover{
-background-color:rgb(41,189,139);
-color:white;
-}</string>
-      </property>
-      <property name="text">
-       <string>转发</string>
-      </property>
-      <property name="icon">
-       <iconset resource="souce.qrc">
-        <normaloff>:/souce/souce/发送.png</normaloff>:/souce/souce/发送.png</iconset>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="delEmail">
-      <property name="geometry">
-       <rect>
-        <x>530</x>
-        <y>15</y>
-        <width>60</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#delEmail{
-	border:none;
-	font-size:14px;
-	background-color: rgb(219,219,219);
-}
-#delEmail:hover{
-background-color:tomato;
-color:white;
-}</string>
-      </property>
-      <property name="text">
-       <string>删除</string>
-      </property>
-      <property name="icon">
-       <iconset resource="souce.qrc">
-        <normaloff>:/souce/souce/关闭1.png</normaloff>:/souce/souce/关闭1.png</iconset>
-      </property>
-     </widget>
      <widget class="QLabel" name="contEmailTime">
       <property name="geometry">
        <rect>
         <x>70</x>
         <y>50</y>
-        <width>201</width>
+        <width>231</width>
         <height>20</height>
        </rect>
       </property>
@@ -570,9 +618,9 @@ color:white;
      <widget class="QLabel" name="contEmailSubject">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>340</x>
         <y>50</y>
-        <width>231</width>
+        <width>251</width>
         <height>20</height>
        </rect>
       </property>
@@ -584,30 +632,49 @@ color:white;
       </property>
      </widget>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>20</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/souce/souce/下拉 (2).png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
+    <widget class="QListWidget" name="attachList">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>401</y>
+       <width>271</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#attachList{background-color: tomato;
+}
+#attachList::Item{
+height:50px;
+}
+#attachList::Item:hover{
+background-color: rgb(41, 189, 139);
+}</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>每次看见大客车绝对是.json</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>hello world</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>小撒爱上.jpg</string>
+      </property>
+     </item>
+    </widget>
    </widget>
    <widget class="QLineEdit" name="searchlineEdit">
     <property name="geometry">
      <rect>
       <x>237</x>
-      <y>22</y>
+      <y>19</y>
       <width>190</width>
-      <height>18</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -691,6 +758,142 @@ border-image: url(:/souce/souce/最小化.png);
       <normaloff>:/souce/souce/搜索框－搜索.png</normaloff>:/souce/souce/搜索框－搜索.png</iconset>
     </property>
    </widget>
+   <widget class="QPushButton" name="mainReply">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>20</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#mainForward{
+	border:none;
+	font-size:14px;
+	background-color: rgb(219,219,219);
+}
+#mainForward:hover{
+background-color:rgb(41,189,139);
+color:white;
+}</string>
+    </property>
+    <property name="text">
+     <string>回复</string>
+    </property>
+    <property name="icon">
+     <iconset resource="souce.qrc">
+      <normaloff>:/souce/souce/发送.png</normaloff>:/souce/souce/发送.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mainForward">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>20</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#mainForward{
+	border:none;
+	font-size:14px;
+	background-color: rgb(219,219,219);
+}
+#mainForward:hover{
+background-color:rgb(41,189,139);
+color:white;
+}</string>
+    </property>
+    <property name="text">
+     <string>转发</string>
+    </property>
+    <property name="icon">
+     <iconset resource="souce.qrc">
+      <normaloff>:/souce/souce/发送.png</normaloff>:/souce/souce/发送.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delEmail">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>20</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#delEmail{
+	border:none;
+	font-size:14px;
+	background-color: rgb(219,219,219);
+}
+#delEmail:hover{
+background-color:tomato;
+color:white;
+}</string>
+    </property>
+    <property name="text">
+     <string>删除</string>
+    </property>
+    <property name="icon">
+     <iconset resource="souce.qrc">
+      <normaloff>:/souce/souce/关闭1.png</normaloff>:/souce/souce/关闭1.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mainAttach">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>20</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查看附件</string>
+    </property>
+    <property name="icon">
+     <iconset resource="souce.qrc">
+      <normaloff>:/souce/souce/附件.png</normaloff>:/souce/souce/附件.png</iconset>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="searchMode">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>20</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>请选择</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>主题</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>时间</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>联系人</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>邮件内容</string>
+     </property>
+    </item>
+   </widget>
   </widget>
  </widget>
  <customwidgets>
@@ -703,22 +906,5 @@ border-image: url(:/souce/souce/最小化.png);
  <resources>
   <include location="souce.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>searchlineEdit</sender>
-   <signal>editingFinished()</signal>
-   <receiver>searchList</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>293</x>
-     <y>32</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>299</x>
-     <y>61</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

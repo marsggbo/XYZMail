@@ -13,6 +13,7 @@ from DealJsonFile import GetJsonInfo, SaveJsonInfo
 class SendMail():
 	def __init__(self, parent=None):
 		self.emailInfo = GetJsonInfo('conf.json')
+		# self.emailInfo = {}
 
 	def Send(self):
 		try:
