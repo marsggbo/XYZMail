@@ -1,2 +1,1 @@
-{"status": 1, "pop3_server": "pop.qq.com", "smtp_server": "smtp.qq.com", "pwd": "", "email": ""}
-
+{"smtp_server": "", "status": 0, "email": "", "pwd": "", "pop3_server": ""}

@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['main.py'],
-             pathex=['C:\\Users\\14356\\Desktop\\EmailSystem_ËÑË÷_×ª·¢_»Ø¸´_12.15\\Email\\Libs'],
+a = Analysis(['..\\..\\..\\EmailSystem_\xcb\xd1\xcb\xf7_\xd7\xaa\xb7\xa2_\xbb\xd8\xb8\xb4_12.15\\Email\\Libs\\main.py'],
+             pathex=['C:\\Users\\14356\\Desktop\\EMAILS~1.15\\Email\\Libs'],
              binaries=None,
              datas=None,
              hiddenimports=[],

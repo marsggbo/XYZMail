@@ -4,6 +4,7 @@ import time, threading
 from email.parser import Parser
 from email.header import decode_header
 from email.utils import parseaddr, parsedate
+from email.parser import BytesParser
 from DealJsonFile import GetJsonInfo, SaveJsonInfo
 import os
 import chardet
@@ -43,27 +44,10 @@ class ReceiveMail():
 			for i in range(index,index-6,-1):
 				msg_content = ''
 				resp, lines, octets = self.server.retr(i)
-
-				# lines存储了邮件的原始文本的每一行,
-				# 可以获得整个邮件的原始文本:
-				# 获取邮件编码格式
-				for i,item in enumerate(lines):
-					if "charset" in str(item):
-						try:
-							self.charset = str(item).split('charset')[1].split("=")[1]
-							print('邮件编码格式1为：'+self.charset)
-							break
-						except Exception as e:
-							print(str(e))
-							with open('log.txt','rb') as f:
-								f.write(item)
-				if "utf" in self.charset.lower():
-					self.charset = "utf-8"
-					print('邮件编码格式2为：'+self.charset)
-				msg_content = b'\r\n'.join(lines).decode(self.charset)
+				msg_content = b'\r\n'.join(lines)
 
 				# # 稍后解析出邮件:
-				msg = Parser().parsestr(msg_content)
+				msg = BytesParser().parsebytes(msg_content)
 				self.print_info(msg)
 
 				# 可以根据邮件索引号直接从服务器删除邮件:
@@ -76,19 +60,10 @@ class ReceiveMail():
 
 				# lines存储了邮件的原始文本的每一行,
 				# 可以获得整个邮件的原始文本:
-				# 获取邮件编码格式
-				for i,item in enumerate(lines):
-					if "charset=" in str(item):
-						self.charset = str(item).split('charset')[1].split("=")[1]
-						print('邮件编码格式为：'+self.charset)
-						break
-				if "utf" in self.charset.lower():
-					self.charset = "utf-8"
-					print('邮件编码格式2为：'+self.charset)
-				msg_content = b'\r\n'.join(lines).decode(self.charset)
+				msg_content = b'\r\n'.join(lines)
 
-				# # 稍后解析出邮件:
-				msg = Parser().parsestr(msg_content)
+				# 稍后解析出邮件:
+				msg = BytesParser().parsebytes(msg_content)
 				self.print_info(msg)
 		self.server.quit()
 
@@ -161,7 +136,8 @@ class ReceiveMail():
 
 		else:
 			content_type = msg.get_content_type()
-			if content_type == 'text/plain' or content_type == 'text/html':
+			# if content_type == 'text/plain' or content_type == 'text/html':
+			if content_type == 'text/html':
 				content = msg.get_payload(decode=True)
 				charset = self.guess_charset(msg)
 				# print(charset)
@@ -172,6 +148,7 @@ class ReceiveMail():
 					except Exception as e:
 						print(str(e))
 						content = content.decode(charset)
+						print('解码成功')
 
 				content = '<meta charset="utf-8">' + content + '<meta charset="utf-8">'
 
@@ -209,16 +186,18 @@ class ReceiveMail():
 					# h = email.Header.Header(filename)
 					dh = decode_header(filename)
 					fname = dh[0][0]
-
-					# print(fname)
-					# print(type(fname))
-
-					charset = chardet.detect(fname)['encoding']
-					fname = fname.decode(charset)
-					# print(fname)
-					# print(type(fname))
-					# fname = fname.replace('/', '_')
-
+					charset = dh[0][1]
+					print(type(fname))
+					print(fname)
+					try:
+						fname = fname.decode(charset)
+						print(type(fname))
+						print(fname)
+					except Exception as e:
+						print(str(e))
+						fname = dh[0][0]
+						print(type(fname))
+						print(fname)
 					data = msg.get_payload(decode=True)
 
 					if not os.path.exists(sonDir):
@@ -228,6 +207,7 @@ class ReceiveMail():
 							f.write(data)
 					else:
 						sonDir = sonDir + "/%s" % fname
+						print(sonDir)
 						with open(sonDir, 'wb') as f:
 							f.write(data)
 				else:
