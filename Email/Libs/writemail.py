@@ -5,7 +5,8 @@ Module implementing WriteEmailDialog.
 """
 
 from PyQt4.QtCore import pyqtSlot
-from PyQt4.QtGui import QDialog,QMessageBox
+from PyQt4.QtGui import QDialog
+from PyQt4.QtGui import QMessageBox
 
 from Ui_writemail import Ui_WriteEmailDialog
 from smtp import SendMail
@@ -21,7 +22,8 @@ def GetEmailText(filename):
 class WriteEmailDialog(QDialog, Ui_WriteEmailDialog):
 
 	# isForward用于判断是否是转发,默认不是转发,text是转发内容
-	def __init__(self, parent=None,isForwad=False,ForwardInfo=None,url=None,isReply=False,replyInfo=None):
+	def __init__(self, parent=None,isForwad=False,ForwardInfo=None,url=None,\
+	isReply=False,replyInfo=None):
 		super(WriteEmailDialog, self).__init__(parent)
 		self.setupUi(self)
 		self.emailInfo = GetJsonInfo('conf.json')
@@ -31,26 +33,33 @@ class WriteEmailDialog(QDialog, Ui_WriteEmailDialog):
 		# self.info = info  # info是要转发的用户信息，用元组表示
 		if self.isForwad:
 			self.emailText = GetEmailText(url)
-			self.formatText = '''\n\n\n\n- 发送自XYZ邮箱 -\n-------- 转发的邮件 --------\n发件人: "%s" %s\n日期: %s\n主题: %s\n'''%(ForwardInfo['email'],ForwardInfo['name'],ForwardInfo['time'],ForwardInfo['subject'])
+			self.formatText = '''\n\n\n\n- 发送自XYZ邮箱 \
+			-\n-------- 转发的邮件 --------\n发件人: "%s" %s\n日期:\
+			 %s\n主题: %s\n'''%(ForwardInfo['email'],ForwardInfo['name']\
+			 ,ForwardInfo['time'],ForwardInfo['subject'])
 			self.emailContent.setPlainText(self.formatText)
 
 			# 将转发信息格式化
 			str1 = self.formatText.split('-\n')
 			str2 = str1[2].split('\n')
 			str3 = (str1[0],str1[1],str2[0],str2[1],str2[2])
-			self.formatText = '<div>%s<br>%s<br>%s<br>%s<br>%s<br><div></div><div style="clear:both;"></div>'% str3
+			self.formatText = '<div>%s<br>%s<br>%s<br>%s<br>%s<br><div>\
+			</div><div style="clear:both;"></div>'% str3
 
 		if self.isReply:
 			self.emailText = GetEmailText(url)
-			self.formatText = '''\n\n\n\n- 发送自XYZ邮箱 -\n-------- 转发的邮件 --------\n发件人: "%s" %s\n日期: %s\n主题: %s\n''' % (
-				ForwardInfo['email'], ForwardInfo['name'], ForwardInfo['time'], ForwardInfo['subject'])
+			self.formatText = '''\n\n\n\n- 发送自XYZ邮箱 -\n-------- 转发的邮件\
+			 --------\n发件人: "%s" %s\n日期: %s\n主题: %s\n''' % (
+				ForwardInfo['email'], ForwardInfo['name'], ForwardInfo['time'],\
+				 ForwardInfo['subject'])
 			self.emailContent.setPlainText(self.formatText)
 
 			# 将转发信息格式化
 			str1 = self.formatText.split('-\n')
 			str2 = str1[2].split('\n')
 			str3 = (str1[0], str1[1], str2[0], str2[1], str2[2])
-			self.formatText = '<div>%s<br>%s<br>%s<br>%s<br>%s<br><div></div><div style="clear:both;"></div>' % str3
+			self.formatText = '<div>%s<br>%s<br>%s<br>%s<br>%s<br><div></div>\
+			<div style="clear:both;"></div>' % str3
 			self.receiverEdit.setText(replyInfo['reply_addr'])
 			self.subjectEdit.setText(replyInfo['reply_subject'])
 
@@ -79,7 +88,7 @@ class WriteEmailDialog(QDialog, Ui_WriteEmailDialog):
 					self.close()
 				else:
 					alert = QMessageBox.warning(self,'发送邮件提示','请将信息填写完整!')
-			
+
 		except Exception as e:
 			print(str(e))
 			a = str(e)
