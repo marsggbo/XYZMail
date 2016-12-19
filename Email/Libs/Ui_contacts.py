@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\14356\Desktop\EmailSystem\Email\Libs\contacts.ui'
+# Form implementation generated from reading ui file 'C:\Users\14356\Desktop\EmailSystem_搜索_转发_回复_12.15\Email\Libs\contacts.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #

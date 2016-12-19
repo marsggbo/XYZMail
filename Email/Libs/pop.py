@@ -1,6 +1,8 @@
+#coding=utf-8
 import poplib
 import json
 import time, threading
+import email
 from email.parser import Parser
 from email.header import decode_header
 from email.utils import parseaddr, parsedate

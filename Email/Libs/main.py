@@ -7,8 +7,7 @@ import smtplib
 from PyQt4 import QtCore,  QtGui
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-import time, threading, os,sys
-from multiprocessing import Process
+import time, os,sys
 
 from Ui_main import Ui_MainWindow
 from calender import calenderDialog
@@ -389,6 +388,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 	# 登录
 	@pyqtSlot()
 	def on_mainlogin_clicked(self):
+		self.hide()
 		my_login = Login()
 		my_login.exec_()
 		self.emailInfo = GetJsonInfo('conf.json')
@@ -397,6 +397,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.mainlogin.setText('切换账号')
 			self.emaillist.clear()
 			self.login = 1
+			self.show()
 
 	# 日历
 	@pyqtSlot()

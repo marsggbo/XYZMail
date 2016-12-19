@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\14356\Desktop\EmailSystem\Email\Libs\main.ui'
+# Form implementation generated from reading ui file 'C:\Users\14356\Desktop\EmailSystem_搜索_转发_回复_12.15\Email\Libs\main.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -32,8 +32,9 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/pics/pics/XYZ.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet(_fromUtf8("\n"
-"font: 11pt \"Microsoft YaHei UI\";"))
+        MainWindow.setStyleSheet(_fromUtf8("*{\n"
+"font: 14px \"Microsoft YaHei UI\";\n"
+"}"))
         self.centralWidget = QtGui.QWidget(MainWindow)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.widget = QtGui.QWidget(self.centralWidget)
@@ -110,9 +111,17 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.mainwriteletter = QtGui.QPushButton(self.groupBox)
         self.mainwriteletter.setGeometry(QtCore.QRect(0, 0, 102, 50))
+        self.mainwriteletter.setStyleSheet(_fromUtf8("color:white;"))
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/写信.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.mainwriteletter.setIcon(icon5)
         self.mainwriteletter.setObjectName(_fromUtf8("mainwriteletter"))
         self.mainreceiveletter = QtGui.QPushButton(self.groupBox)
         self.mainreceiveletter.setGeometry(QtCore.QRect(100, 0, 100, 50))
+        self.mainreceiveletter.setStyleSheet(_fromUtf8("color:white;"))
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/收信 .png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.mainreceiveletter.setIcon(icon6)
         self.mainreceiveletter.setObjectName(_fromUtf8("mainreceiveletter"))
         self.mainlogin = QtGui.QPushButton(self.widget)
         self.mainlogin.setGeometry(QtCore.QRect(80, 230, 41, 41))
@@ -309,9 +318,9 @@ class Ui_MainWindow(object):
 "    background-color:rgb(49,126,243);\n"
 "}"))
         self.mainSearch.setText(_fromUtf8(""))
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/搜索框－搜索.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.mainSearch.setIcon(icon5)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/搜索框－搜索.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.mainSearch.setIcon(icon7)
         self.mainSearch.setObjectName(_fromUtf8("mainSearch"))
         self.mainReply = QtGui.QPushButton(self.centralWidget)
         self.mainReply.setGeometry(QtCore.QRect(580, 20, 61, 31))
@@ -324,9 +333,9 @@ class Ui_MainWindow(object):
 "background-color:rgb(41,189,139);\n"
 "color:white;\n"
 "}"))
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/发送.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.mainReply.setIcon(icon6)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/发送.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.mainReply.setIcon(icon8)
         self.mainReply.setObjectName(_fromUtf8("mainReply"))
         self.mainForward = QtGui.QPushButton(self.centralWidget)
         self.mainForward.setGeometry(QtCore.QRect(670, 20, 61, 31))
@@ -339,7 +348,7 @@ class Ui_MainWindow(object):
 "background-color:rgb(41,189,139);\n"
 "color:white;\n"
 "}"))
-        self.mainForward.setIcon(icon6)
+        self.mainForward.setIcon(icon8)
         self.mainForward.setObjectName(_fromUtf8("mainForward"))
         self.delEmail = QtGui.QPushButton(self.centralWidget)
         self.delEmail.setGeometry(QtCore.QRect(800, 20, 61, 31))
@@ -352,15 +361,15 @@ class Ui_MainWindow(object):
 "background-color:tomato;\n"
 "color:white;\n"
 "}"))
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/关闭1.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.delEmail.setIcon(icon7)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/关闭1.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.delEmail.setIcon(icon9)
         self.delEmail.setObjectName(_fromUtf8("delEmail"))
         self.mainAttach = QtGui.QPushButton(self.centralWidget)
         self.mainAttach.setGeometry(QtCore.QRect(890, 20, 91, 31))
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/附件.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.mainAttach.setIcon(icon8)
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap(_fromUtf8(":/souce/souce/附件.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.mainAttach.setIcon(icon10)
         self.mainAttach.setObjectName(_fromUtf8("mainAttach"))
         self.searchMode = QtGui.QComboBox(self.centralWidget)
         self.searchMode.setGeometry(QtCore.QRect(430, 20, 91, 21))
